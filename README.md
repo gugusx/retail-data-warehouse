@@ -1,15 +1,25 @@
-A. Pre-Requirements
+### This repository contains a Retail Data Warehouse designed to support Business Intelligence (BI) teams in analyzing retail sales performance.
+
+### Project Overview
+The Retail Data Warehouse is built to provide structured and ready-to-use data for BI analysis. It supports:
+1. Sales & Revenue Analysis 💰
+2. Delivery Performance 🎯
+3. Monthly Seller Revenue 📈
+4. Top 100 Products By Invoce 🛒
+5. Customer Reviews ⭐️ 
+
+### A. Pre-Requirements
 1. Postgres Image OR PostgreSQL in local
 2. DBT for data transformation
 3. Metabase Image for data visualization
 
-B. Prepare Dataset and Schema
+### B. Prepare Dataset and Schema
 1. Download dataset https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce and extract into your local computer.
 2. Create database schema based on dataset (filename: **ddl.sql**)
 3. (Optional) Create ER Diagram, open https://dbdiagram.io/ in browser and paste **erd.io**
 ![alt text](ERD.png)
 
-C. Setup PostgreSQL Container and Import CSV Dataset
+### C. Setup PostgreSQL Container and Import CSV Dataset
 1. Pull Postgres Image from https://hub.docker.com/, I've already install PostgreSQL 12.
 - If you don't have Postgres Image, pull from terminal using command: `docker pull postgres:12`
 - Run PostgreSQL container using command: `docker run --name postgres-retail -e POSTGRES_USER=user1 -e POSTGRES_PASSWORD=12345##12345 -e POSTGRES_DB=brazilian_ecommerce -p 1818:5432 -d postgres:12`
@@ -39,7 +49,7 @@ C. Setup PostgreSQL Container and Import CSV Dataset
 - `copy global.olist_sellers_dataset from '/home/dataset/olist_sellers_dataset.csv' with delimiter ',' csv header;`
 - `copy global.product_category_name_translation from '/home/dataset/product_category_name_translation.csv' with delimiter ',' csv header;`
 
-D. Prepare DBT
+### D. Prepare DBT
 1. Create python virtual environment using command: `python3 -m venv dbt_retail`
 2. Activate virtual environment: `source dbt_retail/bin/activate`
 3. Install DBT libraries
@@ -63,7 +73,7 @@ D. Prepare DBT
 7. Check connection between DBT and database based on config (**profiles.yml**) using command: `dbt debug` (Ensure all checks passed)
 ![alt text](dbt_debug.png)
 
-E. Create Data Modelling
+### E. Create Data Modelling
 1. In retail_warehous/models/, create 3 layers of driectory: `mkdir -p models/raw models/intermediate models/mart`
 - raw: store raw data from database
 - intermediate: create data models based on BI/Data Analyst requirements
@@ -84,7 +94,7 @@ E. Create Data Modelling
 - **monthly_seller_revenue_analysis.sql**: How many orders has each seller received
 - **top_product_analysis.sql**: Which product categories have the top 100 most ordered products
 
-F. Build DBT
+### F. Build DBT
 1. Check config in **retail_warehouse/dbt_project.yml**. Ensure **model-paths** and **models** declared well.
 ![alt text](mpath.png)
 ![alt text](model.png)
@@ -96,7 +106,7 @@ F. Build DBT
 ##### Lineage Graph
 ![alt text](lineage.png)
 
-G. Prepare for Data Visualization
+### G. Prepare for Data Visualization
 1. Run Metabase container and connect wirh PostgreSQL container: `docker run -d -p 3131:3000 --name metabase-retail --link postgres-retail:postgres metabase/metabase`
 2. Configure metabase to connect to PostgreSQL, open **http://localhost:3131** in browser
 ![alt text](landingpage.png)
