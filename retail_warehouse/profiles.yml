@@ -1,0 +1,12 @@
+retail_warehouse:
+  outputs:
+    dev:
+      dbname: brazilian_ecommerce
+      host: localhost
+      pass: 12345##12345
+      port: 1818
+      schema: global
+      threads: 10
+      type: postgres
+      user: user1
+  target: dev
