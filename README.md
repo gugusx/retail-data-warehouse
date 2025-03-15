@@ -30,12 +30,10 @@ The Retail Data Warehouse is built to provide structured and ready-to-use data f
 - POSTGRES_DB: brazilian_ecommerce
 - port: 1818
 ##### Ensure the container running succesfully with command: `docker ps`
-![alt text](assets/docker_ps.png)
 2. Login into PostgreSQL Container using command: `docker exec -it postgres-retail bash`
 3. Copy all CSV dataset from local computer to container using command: `docker cp /path/to/file.csv container_name:/path/in/container/`
 - in my case: `docker cp Brazilian\ E-Commerce\ Public\ Dataser postgres-retail:/home/`
 - change directory in container: `mv Brazilian\ E-Commerce\ Public\ Dataser/ dataset`
-![alt text](assets/dataset.png)
 4. Login into database and import schema (**ddl.sql**) into tables.
 - Login: `psql -U user1 -d brazilian_ecommerce`
 - Import CSV
